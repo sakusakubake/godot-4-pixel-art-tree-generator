@@ -1,0 +1,35 @@
+[gd_scene load_steps=10 format=3 uid="uid://dqd5eajr8pd4i"]
+
+[ext_resource type="Shader" path="res://tree/tree.gdshader" id="1_m1j07"]
+[ext_resource type="Script" path="res://tree/tree.gd" id="2_vr68n"]
+
+[sub_resource type="Gradient" id="Gradient_xv3gw"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.514124)
+colors = PackedColorArray(0.223697, 0.198255, 0.154372, 1, 0.173828, 0.13598, 0.109661, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mlnck"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h4qsd"]
+color_ramp = SubResource("Gradient_xv3gw")
+noise = SubResource("FastNoiseLite_mlnck")
+
+[sub_resource type="Gradient" id="Gradient_tqf0u"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mqkoj"]
+frequency = 0.0227
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xl8fb"]
+color_ramp = SubResource("Gradient_tqf0u")
+noise = SubResource("FastNoiseLite_mqkoj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6p6b0"]
+shader = ExtResource("1_m1j07")
+shader_parameter/border_width = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_xl8fb")
+shader_parameter/color = SubResource("NoiseTexture2D_h4qsd")
+
+[node name="Tree" type="Node2D"]
+material = SubResource("ShaderMaterial_6p6b0")
+script = ExtResource("2_vr68n")
+fallen_leaves_color = null
